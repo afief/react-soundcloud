@@ -53,8 +53,7 @@ class Search extends Component {
 		let searchEls = this.state.searchResults.map((track, i) => {
 			let user = (track.user || {});
 			let artwork = (track.artwork_url || user.avatar_url);
-			
-			console.log(artwork);
+		
 
 			return <li className="track" key={i} onClick={() => this.onTrackClicked(track)}>
 				<div className="artwork" style={{backgroundImage: 'url(' + artwork + ')'}}></div>
