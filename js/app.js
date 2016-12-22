@@ -103,7 +103,30 @@
 					'div',
 					{ className: 'player-wrapper' },
 					_react2.default.createElement(_player2.default, { ref: 'player' }),
-					_react2.default.createElement(_search2.default, { ref: 'search', onTrackPicked: this.onTrackPicked })
+					_react2.default.createElement(_search2.default, { ref: 'search', onTrackPicked: this.onTrackPicked }),
+					_react2.default.createElement(
+						'div',
+						{ className: 'attribution' },
+						'crafted with\xA0',
+						_react2.default.createElement(
+							'a',
+							{ href: 'https://facebook.github.io/react', target: '_blank' },
+							'react'
+						),
+						',\xA0',
+						_react2.default.createElement(
+							'a',
+							{ href: 'https://soundcloud.com', target: '_blank' },
+							'soundcloud'
+						),
+						', and\xA0',
+						_react2.default.createElement(
+							'a',
+							{ href: 'http://afief.net', target: '_blank' },
+							'love'
+						),
+						' in Bandung'
+					)
 				);
 			}
 		}]);
@@ -21581,15 +21604,36 @@
 				var user = this.state.track.user || {};
 				var artwork = this.state.track.artwork_url || user.avatar_url || false;
 
+				function renderArtwork() {
+					if (artwork) {
+						return _react2.default.createElement(
+							'div',
+							{ className: 'artwork', style: { backgroundImage: 'url(' + artwork + ')' } },
+							_react2.default.createElement(
+								'div',
+								{ className: 'user' },
+								_react2.default.createElement('div', { className: 'avatar', style: { backgroundImage: 'url(' + user.avatar_url + ')' } }),
+								_react2.default.createElement(
+									'div',
+									{ className: 'name' },
+									user.username
+								),
+								_react2.default.createElement(
+									'div',
+									{ className: 'permalink' },
+									'@',
+									user.permalink
+								)
+							)
+						);
+					}
+				}
+
 				return _react2.default.createElement(
 					'div',
 					{ className: 'player' },
-					_react2.default.createElement('audio', { ref: 'audioplayer' }),
-					function () {
-						if (artwork) {
-							return _react2.default.createElement('div', { className: 'artwork', style: { backgroundImage: 'url(' + artwork + ')' } });
-						}
-					}()
+					_react2.default.createElement('audio', { ref: 'audioplayer', controls: true }),
+					renderArtwork()
 				);
 			}
 		}]);
@@ -21656,16 +21700,13 @@
 		}, {
 			key: 'onSearch',
 			value: function onSearch(event) {
-				//console.log('Search : ' + this.state.searchText);
 				event.preventDefault();
 
 				var that = this;
 				if (this.state.searchText.length >= 3) {
 					SC.get('/tracks', {
-						q: this.state.searchText,
-						license: 'cc-by-sa'
+						q: this.state.searchText
 					}).then(function (tracks) {
-						//console.log('tracks', tracks);
 						var pickedTracks = [];
 						tracks.map(function (track) {
 							if (track.stream_url) {
@@ -21717,7 +21758,7 @@
 					_react2.default.createElement(
 						'form',
 						{ onSubmit: this.onSearch },
-						_react2.default.createElement('input', { type: 'text', value: this.state.searchText, onChange: this.onSearchTextChange }),
+						_react2.default.createElement('input', { type: 'text', value: this.state.searchText, onChange: this.onSearchTextChange, placeholder: 'Your Favorite Song' }),
 						_react2.default.createElement(
 							'button',
 							{ type: 'submit' },
@@ -21777,7 +21818,7 @@
 
 
 	// module
-	exports.push([module.id, "html, body {\n  padding: 0px;\n  margin: 0px;\n  background-color: #fafafa;\n  font-family: sans-serif; }\n\n.player-wrapper {\n  background-color: white;\n  border: solid 1px #eee;\n  box-shadow: 1px 1px 5px -4px #444;\n  border-radius: 2px;\n  max-width: 400px;\n  margin: 20px auto; }\n\n.search {\n  padding: 10px; }\n  .search form {\n    box-sizing: border-box;\n    padding-right: 40px;\n    position: relative; }\n    .search form input {\n      width: 100%;\n      box-sizing: border-box;\n      padding: 5px 8px;\n      border: solid 1px #ddd;\n      border-radius: 5px 0px 0px 5px;\n      height: 40px;\n      outline: none; }\n    .search form button {\n      position: absolute;\n      right: 0px;\n      top: 0px;\n      width: 40px;\n      box-sizing: border-box;\n      background-color: #ff5500;\n      border: none;\n      height: 40px;\n      padding: 0px;\n      border-radius: 0px 5px 5px 0px;\n      color: white; }\n  .search .search-result {\n    margin: 0px;\n    margin-top: 10px;\n    padding: 0px;\n    list-style: none; }\n    .search .search-result li {\n      padding: 10px;\n      border-bottom: solid 1px #eee;\n      color: #444;\n      padding-left: 70px;\n      position: relative; }\n      .search .search-result li .artwork {\n        left: 10px;\n        top: 10px;\n        position: absolute;\n        width: 50px;\n        height: 50px;\n        background-size: cover;\n        background-position: center center; }\n      .search .search-result li .title {\n        font-size: 0.9em;\n        padding-bottom: 5px; }\n      .search .search-result li .username {\n        font-size: 0.8em;\n        font-weight: bold;\n        color: #f50; }\n      .search .search-result li:last-child {\n        border: none; }\n\n.player .artwork {\n  width: 100%;\n  height: 200px;\n  background-size: cover;\n  background-position: center center; }\n", ""]);
+	exports.push([module.id, "html, body {\n  padding: 0px;\n  margin: 0px;\n  background-color: #fafafa;\n  font-family: sans-serif; }\n\n.player-wrapper {\n  background-color: white;\n  border: solid 1px #eee;\n  box-shadow: 1px 1px 5px -4px #444;\n  border-radius: 2px;\n  max-width: 400px;\n  margin: 20px auto; }\n  @media screen and (max-width: 400px) {\n    .player-wrapper {\n      margin: 0px;\n      border-radius: 0px;\n      width: 100%; } }\n  .player-wrapper .search {\n    padding: 10px; }\n    .player-wrapper .search form {\n      box-sizing: border-box;\n      padding-right: 40px;\n      position: relative; }\n      .player-wrapper .search form input {\n        width: 100%;\n        box-sizing: border-box;\n        padding: 5px 8px;\n        border: solid 1px #ddd;\n        border-radius: 5px 0px 0px 5px;\n        height: 40px;\n        outline: none; }\n      .player-wrapper .search form button {\n        position: absolute;\n        right: 0px;\n        top: 0px;\n        width: 40px;\n        box-sizing: border-box;\n        background-color: #ff5500;\n        border: none;\n        height: 40px;\n        padding: 0px;\n        border-radius: 0px 5px 5px 0px;\n        color: white; }\n    .player-wrapper .search .search-result {\n      margin: 0px;\n      margin-top: 10px;\n      padding: 0px;\n      list-style: none; }\n      .player-wrapper .search .search-result li {\n        padding: 10px;\n        border-bottom: solid 1px #eee;\n        color: #444;\n        padding-left: 70px;\n        position: relative;\n        min-height: 50px; }\n        .player-wrapper .search .search-result li .artwork {\n          left: 10px;\n          top: 10px;\n          position: absolute;\n          width: 50px;\n          height: 50px;\n          background-size: cover;\n          background-position: center center; }\n        .player-wrapper .search .search-result li .title {\n          font-size: 0.9em;\n          padding-bottom: 5px; }\n        .player-wrapper .search .search-result li .username {\n          font-size: 0.8em;\n          font-weight: bold;\n          color: #f50; }\n        .player-wrapper .search .search-result li:last-child {\n          border: none; }\n  .player-wrapper .player {\n    position: relative; }\n    .player-wrapper .player audio {\n      position: absolute;\n      z-index: 10;\n      bottom: 0px;\n      left: 0px;\n      width: 100%; }\n    .player-wrapper .player .artwork {\n      width: 100%;\n      height: 200px;\n      background-size: cover;\n      background-position: center center;\n      position: relative; }\n      .player-wrapper .player .artwork .user {\n        display: table;\n        position: absolute;\n        left: 10px;\n        top: 10px;\n        padding: 10px;\n        padding-left: 60px;\n        color: #666;\n        background-color: rgba(255, 255, 255, 0.9);\n        min-height: 40px;\n        border-radius: 3px; }\n        .player-wrapper .player .artwork .user .avatar {\n          width: 40px;\n          height: 40px;\n          position: absolute;\n          left: 10px;\n          top: 10px; }\n        .player-wrapper .player .artwork .user .name {\n          color: #ff5500;\n          font-weight: bold; }\n        .player-wrapper .player .artwork .user .permalink {\n          font-size: 0.8em; }\n  .player-wrapper .attribution {\n    color: #999;\n    text-align: center;\n    font-size: 0.7em;\n    display: block;\n    margin-bottom: 10px;\n    padding: 10px; }\n    .player-wrapper .attribution a {\n      color: #6c9fb9; }\n", ""]);
 
 	// exports
 

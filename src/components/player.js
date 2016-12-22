@@ -25,16 +25,21 @@ class Player extends Component {
 		let user = (this.state.track.user || {});
 		let artwork = (this.state.track.artwork_url || user.avatar_url) || false;
 
-		return <div className="player">
-			<audio ref="audioplayer"></audio>
-
-			{
-				(() => {
-					if (artwork) {
-						return <div className="artwork" style={{backgroundImage: 'url(' + artwork + ')'}}></div>
-					}
-				})()
+		function renderArtwork() {
+			if (artwork) {
+				return <div className="artwork" style={{backgroundImage: 'url(' + artwork + ')'}}>
+					<div className="user">
+						<div className="avatar" style={{backgroundImage: 'url(' + user.avatar_url + ')'}}></div>
+						<div className="name">{user.username}</div>
+						<div className="permalink">@{user.permalink}</div>
+					</div>
+				</div>
 			}
+		}
+
+		return <div className="player">
+			<audio ref="audioplayer" controls></audio>
+			{renderArtwork()}
 		</div>
 	}
 }

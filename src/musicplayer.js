@@ -25,6 +25,13 @@ class PlayerWrapper extends Component {
 		return <div className="player-wrapper">
 			<Player ref="player" />
 			<Search ref="search" onTrackPicked={this.onTrackPicked} />
+
+			<div className="attribution">
+				crafted with&nbsp;
+				<a href="https://facebook.github.io/react" target="_blank">react</a>,&nbsp;
+				<a href="https://soundcloud.com" target="_blank">soundcloud</a>, and&nbsp;
+				<a href="http://afief.net" target="_blank">love</a> in Bandung
+			</div>
 		</div>
 	}
 }
