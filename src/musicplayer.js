@@ -36,7 +36,4 @@ class PlayerWrapper extends Component {
 	}
 }
 
-ReactDOM.render(
-	<PlayerWrapper />, 
-	document.getElementById('root')
-	);
+export default PlayerWrapper;
